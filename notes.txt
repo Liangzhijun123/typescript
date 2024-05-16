@@ -1,0 +1,34 @@
+-- Chapter 1 --
+
+-to run the typescript type 'tsc main.ts -w' continue to watch main.ts for any changes
+
+1: 'tsc main.ts'
+2: click go live server in vscode at the bottom
+3: 'tsc main.ts -w' in order to recompile JS so it watch if the file is changed
+
+File structure 
+-build (HTML, CSS, JS, nested directory)
+-src (raw files, components, Typescript)
+
+4:'tsc --init' to initalize the file
+
+5: uncomment "rootDir": "./src" in tsconfig.json file
+  uncomment "outDir": "./build/js", 
+  -'./src' because it is where typscript file will be
+  -'./build/js' so now JS can compile here
+
+6: tsc -w will now look for all the files in the directories
+
+'"target": "es2016", ' recompile JS variables to be 'let' instead of 'var'
+
+If i want to delete a file in 'ts' you have to delete 'js' too
+If you put a ts file in the root (dont do it), it also compile the js in the root 
+
+scroll down to end of tsconfig.json and include 
+  - "include": [
+    "src"
+  ]
+  -now when you creat a file in root it doesn't pop out the js file
+
+-uncomment out '"noEmitOnError": true,' in tsconfig.json it lets JS compile or typescript error
+-comment out '"noEmitOnError": true,' so we can see the typescript error
