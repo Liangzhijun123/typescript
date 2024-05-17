@@ -103,3 +103,6 @@ const sum = (a: number, b: string) => {
 
 
 -- Chapter 3 --
+
+Array and Objects
+
