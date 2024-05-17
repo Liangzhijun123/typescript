@@ -52,6 +52,26 @@ let vh = {
 evh = jp;
 // make a funation to test out. 
 const greetGuitarist = (guitarist) => {
-    return `hello  ${guitarist.name}!`;
+    if (guitarist.name) {
+        // if the Guitarist have a name it will return
+        return `hello  ${guitarist.name}!`;
+    }
+    // if the GUitarist doesn't have a name it will return
+    return 'hello! Missing name';
 };
 console.log(greetGuitarist(jp));
+// Enums
+/*
+Enums are not a type level addition to JS but something added to the language and runtime
+*/
+// enums start a position 0. if change values, TS will keep in order
+var Grade;
+(function (Grade) {
+    // change values
+    Grade[Grade["U"] = 1] = "U";
+    Grade[Grade["D"] = 2] = "D";
+    Grade[Grade["C"] = 3] = "C";
+    Grade[Grade["B"] = 4] = "B";
+    Grade[Grade["A"] = 5] = "A";
+})(Grade || (Grade = {}));
+console.log(Grade.U);
