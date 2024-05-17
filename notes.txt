@@ -32,3 +32,74 @@ scroll down to end of tsconfig.json and include
 
 -uncomment out '"noEmitOnError": true,' in tsconfig.json it lets JS compile or typescript error
 -comment out '"noEmitOnError": true,' so we can see the typescript error
+
+ 
+// defind a user name. if we run both files main.ts and main.js we get error.
+// if we chane the string to something else it won't work because it needs to recompile in main.js
+let username = 'alice';
+console.log(username);
+
+// typescript need  ':number/string' to indicate what it is
+let a: number = 12;
+let b: number =6;
+let c: number = 2;
+
+// this is a valid JS code but ts dont like it. can't mulitple string with number
+console.log(a / b);
+
+// typescrip doesn't get in JS way
+console.log(c * b);
+
+
+-- Chapter 2 --
+
+-Static typing and dynamic typing is not the same as strongly type
+
+-A language that is strongly typed can be either statically or dynamic typed
+
+-TS is a static type language. types are checked at compile time.
+-JS is dynamic type language. types are checked at run time 
+
+-TS infer
+  -implicitly shown. not restricted what it is
+  -explicitly state that the varible is what type
+
+  ex:
+    // if mouse over this it will say 'let myName :string'. 
+    // implicitly -> not shown the type
+    let myName = 'Dave'
+
+    // explicitly -> no longer inferring because we declare it is a string
+    let myName: string = 'Dave'
+
+let myName: string = 'John';
+let meaningOfLife: number;
+let isLoading: boolean;
+
+// 'any' can be any data types
+let album: any;
+
+// union type. string or number -> either one is ok
+let wallet: string | number;
+
+let postID: string | number;
+
+// can be more than two types
+let isActive: number | boolean | string;
+
+// basic expression to select all words
+let regular_Expression: RegExp = /\w+/g;
+
+myName = 'Dave';
+meaningOfLife = 42;
+isLoading = true;
+album = 'van halen';
+
+// function
+const sum = (a: number, b: string) => {
+    return a + b;
+}
+
+
+
+-- Chapter 3 --
