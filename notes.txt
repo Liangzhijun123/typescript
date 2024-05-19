@@ -106,3 +106,226 @@ const sum = (a: number, b: string) => {
 
 Array and Objects
 
+let stringArr: string[] = ['one','hey','dave'];
+
+let guitars: (string | number)[] = ['strat','les paul', 5150];
+
+let mixedDate: (string | number | boolean)[] = ['evh', 1984, true];
+
+stringArr[0] = 'hey';
+stringArr.push('jasmine');
+
+guitars[0] = 1984;
+
+// unshift -> add to beginning of array
+guitars.unshift('jim');
+
+guitars = stringArr;
+mixedDate = guitars;
+
+let bands: string[] = []
+bands.push('van halen')
+
+// Tuple 
+// this is strict because it limits how much to be put here
+let myTuple: [string, number, boolean] = ['dave', 42,true];
+
+// union type with string, number, boolean
+let mixed = ['john',1,false];
+
+// mixed is a type of array with union array that accepts string number and boolean
+// can't do mytuple = mixed because the target requires 3 elements.cant assign tuples that requires 3 elements 
+mixed = myTuple;
+
+// Objects
+let myObj: object;
+myObj = [];
+console.log(typeof myObj);
+myObj = bands;
+
+const exampleObj = {
+    prop1: 'dave',
+    prop2:true,
+}
+
+exampleObj.prop1 = 'john';
+
+// annotate a type. interface is or define a class and methods are inside. can use type = {} too! they both works the same
+interface Guitarist  {
+    name: string,
+
+    // property optional when you put '?' before the call
+    active?: boolean,
+
+    albums: (string | number)[],
+}
+
+// evh is Guitarist type. cannot omit because it gives error
+let evh: Guitarist = {
+    name: 'eddie',
+    active: false,
+    albums: [1984, 5150,'OU812'],
+}
+
+let jp: Guitarist = {
+    name: 'jimmy',
+    active: true,
+    albums: ['I','II','IV'],
+}
+
+// evh and jp are same annotate type
+evh = jp
+
+// how to make property optional
+let vh: Guitarist = {
+    // now when i delete a property in here with Guitarist it no have error because 'active' is optional property type
+    name: 'jimmy',   
+    albums: ['I','II','IV'],
+}
+
+// both are Guitarist
+evh = jp
+
+// make a funation to test out. 
+const greetGuitarist = (guitarist: Guitarist) => {
+
+    if (guitarist.name){
+
+        // if the Guitarist have a name it will return
+        return `hello  ${guitarist.name}!`;
+    }
+
+    // if the GUitarist doesn't have a name it will return
+    return 'hello! Missing name';
+    
+}
+console.log(greetGuitarist(jp));
+
+// Enums
+
+/* 
+Enums are not a type level addition to JS but something added to the language and runtime
+*/
+
+// enums start a position 0. if change values, TS will keep in order
+enum Grade {
+
+    // change values
+    U = 1,
+    D,
+    C,
+    B,
+    A,
+}
+
+console.log(Grade.U);
+
+
+-- Chapter 4 --
+
+// type aliases
+type stringOrNumber = string | number;
+
+type stringOrNumberArray = (string | number) [];
+
+type Guitarist = {
+    name?: string,
+
+    // property optional when you put '?' before the call
+    active: boolean,
+
+    albums: stringOrNumberArray,
+}
+
+type UserId = stringOrNumber;
+
+// literaly types
+let myName: 'dave';
+
+let userName: 'dave' | 'john' | 'amy';
+userName = 'amy';
+
+// functions
+const add = (a: number , b: number): number => {
+    return a + b;
+}
+
+const logMsg = (message: any) =>{
+    console.log(message);
+}
+
+logMsg ('hello');
+logMsg(add(2,3));
+
+let subtract = function (c: number , d: number): number{
+    return c - d;
+}
+
+// type mathFunction = (a: number , b: number) => number;
+interface mathFunction {
+    (a: number , b: number) : number;
+} 
+
+let multiply: mathFunction = function (c,d){
+    return c * d;
+}
+
+logMsg(multiply(2,2));
+
+// optional parameters comes at last onlu
+const addAll = (a: number, b: number, c?: number) : number => {
+
+    // if type c is not undefine it will add a + b + c
+    if (typeof c !== 'undefined'){
+        return a + b + c;
+    }
+
+    // if type c is undefine it will add a + b
+    return a + b;
+}
+
+// assign default values
+const sumAll = (a: number = 10, b: number, c: number = 2 ) : number => {
+
+    return a + b + c;
+}
+
+logMsg(addAll(2,3,2));
+logMsg(addAll(2,3));
+logMsg(sumAll(2,3));
+
+// to skip value a but it will still have default value
+logMsg(sumAll(undefined,3));
+
+// rest parameters. ...nums is for you don't know how many values you put in
+const total = (a: number , ...nums: number[]): number => {
+    return a + nums.reduce((prev, curr) => prev + curr);
+} 
+logMsg(total(10,2,3));
+
+// never type
+const createEroor = (errMsg: string) => {
+    throw new Error(errMsg);
+}
+
+// endless error so you need a if and else otherwise is endless loop
+const infinite = () => {
+    let i: number = 1;
+    while (true){
+        i++;
+        if( i > 100 ) break;
+    }
+}
+
+// custom type guard
+const isNumber = (value: any): boolean => {
+    return typeof value === 'number' 
+    ? true : false;
+}
+
+// to use never type
+const numberOrString = (value: number | string) : string => {
+    if (typeof value === 'string') return 'string';
+    if (isNumber(value)) return 'number';
+    return createEroor('this should never happen!');
+}
