@@ -1,106 +1,39 @@
-// type aliases
-type stringOrNumber = string | number;
+type One = string;
+type Two = string | number;
+type Three = 'hello';
 
-type stringOrNumberArray = (string | number) [];
+// convert to type assertions
+let a: One = 'hello';
 
-type Guitarist = {
-    name?: string,
+// less specific type because Two is String or Number
+let b = a as Two;
 
-    // property optional when you put '?' before the call
-    active: boolean,
+// more specific because those two are the same string
+let c = a as Three;
 
-    albums: stringOrNumberArray,
+let d = <One> 'word';
+let e = <string | number> 'word';
+
+// function
+const addOrConcat = (a: number , b: number , c: 'add' | 'concat'): number | string => {
+    if ( c === 'add') return a + b;
+    return '' + a + b;
 }
 
-type UserId = stringOrNumber;
+// assertion. this will tell TS that it will return a string 'as string'. ignore warning
+let myVale: string = addOrConcat(2,2,'concat') as string;
 
-// literaly types
-let myName: 'dave';
+// careful here bc TS see no issue but string is returned
+let nextVale: number = addOrConcat(2,2,'concat') as number;
 
-let userName: 'dave' | 'john' | 'amy';
-userName = 'amy';
+// two assertions or double force casting to a string (avoid this)
+(10 as unknown) as string;
 
-// functions
-const add = (a: number , b: number): number => {
-    return a + b;
-}
+// assertion is useful when doing HTML. the DOM
+const img = document.querySelector('img') as HTMLImageElement;
 
-const logMsg = (message: any) =>{
-    console.log(message);
-}
+// '!' none null assertion
+const myimg = document.getElementById('#img') as HTMLImageElement;
 
-logMsg ('hello');
-logMsg(add(2,3));
-
-let subtract = function (c: number , d: number): number{
-    return c - d;
-}
-
-// type mathFunction = (a: number , b: number) => number;
-interface mathFunction {
-    (a: number , b: number) : number;
-} 
-
-let multiply: mathFunction = function (c,d){
-    return c * d;
-}
-
-logMsg(multiply(2,2));
-
-// optional parameters comes at last onlu
-const addAll = (a: number, b: number, c?: number) : number => {
-
-    // if type c is not undefine it will add a + b + c
-    if (typeof c !== 'undefined'){
-        return a + b + c;
-    }
-
-    // if type c is undefine it will add a + b
-    return a + b;
-}
-
-// assign default values
-const sumAll = (a: number = 10, b: number, c: number = 2 ) : number => {
-
-    return a + b + c;
-}
-
-logMsg(addAll(2,3,2));
-logMsg(addAll(2,3));
-logMsg(sumAll(2,3));
-
-// to skip value a but it will still have default value
-logMsg(sumAll(undefined,3));
-
-// rest parameters. ...nums is for you don't know how many values you put in
-const total = (a: number , ...nums: number[]): number => {
-    return a + nums.reduce((prev, curr) => prev + curr);
-} 
-logMsg(total(10,2,3));
-
-// never type
-const createEroor = (errMsg: string) => {
-    throw new Error(errMsg);
-}
-
-// endless error so you need a if and else otherwise is endless loop
-const infinite = () => {
-    let i: number = 1;
-    while (true){
-        i++;
-        if( i > 100 ) break;
-    }
-}
-
-// custom type guard
-const isNumber = (value: any): boolean => {
-    return typeof value === 'number' 
-    ? true : false;
-}
-
-// to use never type
-const numberOrString = (value: number | string) : string => {
-    if (typeof value === 'string') return 'string';
-    if (isNumber(value)) return 'number';
-    return createEroor('this should never happen!');
-}
+img.src
+myimg.src 

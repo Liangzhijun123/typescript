@@ -329,3 +329,10 @@ const numberOrString = (value: number | string) : string => {
     if (isNumber(value)) return 'number';
     return createEroor('this should never happen!');
 }
+
+-- Chapter 5 --
+Assertions
+
+-information like 'document.' is a type of value that TS dont know.
+    -TS will return HTMLElement given an postID
+
