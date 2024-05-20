@@ -35,5 +35,8 @@ const img = document.querySelector('img') as HTMLImageElement;
 // '!' none null assertion
 const myimg = document.getElementById('#img') as HTMLImageElement;
 
+// this wont work in react or tsx file
+const nestimg = <HTMLImageElement>document.getElementById('#img');
+
 img.src
 myimg.src 

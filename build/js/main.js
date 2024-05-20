@@ -23,5 +23,7 @@ let nextVale = addOrConcat(2, 2, 'concat');
 const img = document.querySelector('img');
 // '!' none null assertion
 const myimg = document.getElementById('#img');
+// this wont work in react or tsx file
+const nestimg = document.getElementById('#img');
 img.src;
 myimg.src;
