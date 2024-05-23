@@ -543,3 +543,125 @@ myBands.data=[...myBands.data, 'zz top'];
 
 // getter to get data
 console.log(myBands.data);
+
+
+
+-- Chapter 7 --
+
+// index signatures -> when creating object keys. 
+
+interface TransactionObja {
+
+    // declaring the index signatures to be numbers. keys are 'string'
+   readonly [index: string]: number;
+}
+
+// interface
+interface TransactionObj {
+    readonly [index: string]: number;
+    Pizza: number,
+    Books: number,
+    Job: number,
+}
+
+const todaysTransactions: TransactionObj = {
+    Pizza: -10,
+    Books: -5,
+    Job: 50,
+
+    // this isnt require because is not in the interface
+    Dave: 40,
+}
+
+console.log(todaysTransactions.Pizza);
+console.log(todaysTransactions['Pizza']);
+
+// loop access dynamically
+let prop: string = 'Pizza';
+console.log(todaysTransactions[prop])
+
+const todaysNet = (transcations: TransactionObj): number => {
+    let total = 0;
+    for (const transcation in transcations){
+        total += transcations[transcation];
+    }
+    return total;
+}
+
+console.log(todaysNet(todaysTransactions));
+
+// this has error because only permits read only
+    //todaysTransactions.Pizza = 40;
+
+console.log(todaysTransactions['dave']);
+
+
+// interface
+interface Student {
+    // index signature
+        //[key: string]: string | number | number[] | undefined
+
+    name: string,
+    GPA: number,
+
+    // optional property
+    classes?: number[],
+}
+
+const student: Student = {
+    name: 'dog',
+    GPA: 3.5,
+    classes: [100,200],
+}
+
+// this will print undefine because it could exist
+    // console.log(student.test);
+
+// loop that iterate students to see issues may occur using index signature
+    // for (const key in student){
+    //     console.log(`${key}: ${student[key]}`);
+    // }
+
+// if comment out index signature. this is using assertion. 'keyok' creates a union type key accessing name, GPA, classes
+for (const key in student){
+    console.log(`${key}: ${student[key as keyof Student]}`);
+}
+
+// alternate version of above
+Object.keys(student).map(key => {
+
+    // retrieve the object by referencing the object itself
+    console.log(student [key as keyof typeof student]);
+})
+
+// function
+const logStudentkey = (student: Student , key: keyof Student): void => {
+    console.log(`student ${key}: ${student[key]}`);
+}
+
+// call the function
+logStudentkey(student, 'GPA');
+
+
+
+// interface
+    // interface Income {
+    //     // index signature
+    //     [key: string]: number;
+    // }
+
+type Streams = 'salary' | 'bonus' | 'sidehustle';
+
+// this allow to use strings in Streams
+type Incomes = Record<Streams, number | string>;
+
+const monthlyIncomes: Incomes = {
+    salary: 500,
+    bonus: 100,
+    sidehustle: 250,
+}
+
+// loop through monthlyIncome using assertion
+for(const revenue in monthlyIncomes){
+    console.log(monthlyIncomes[revenue as keyof Incomes]);
+}
