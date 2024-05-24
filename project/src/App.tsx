@@ -1,15 +1,13 @@
+import React from 'react';
+import InputForm from './components/InputForms';
+import './styles.css';
 
-
-import './App.css'
-
-function App() {
-  
-
+const App: React.FC = () => {
   return (
-    <>
-      
-    </>
-  )
-}
+    <div className="app">
+      <InputForm />
+    </div>
+  );
+};
 
-export default App
+export default App;
